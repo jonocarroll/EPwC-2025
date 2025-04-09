@@ -8,4 +8,4 @@ This is the material (code and presentation slide decks) that correspond to the 
 #### Other Links
 
 * [www.stepanovpapers.com](https://www.stepanovpapers.com)
-* [ISO C++ Comments 👀](https://isocpp.org/blog/2013/06/efficient-programming-with-components-by-alexander-stepanov)
+* [ISO C++ Comments](https://isocpp.org/blog/2013/06/efficient-programming-with-components-by-alexander-stepanov) 👀
