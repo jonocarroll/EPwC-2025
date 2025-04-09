@@ -4,6 +4,8 @@ on:
     types: [opened]
   pull_request:
     types: [opened]
+  pull_request_target:
+    types: [opened]
 
 permissions:
   issues: write
@@ -22,7 +24,7 @@ jobs:
           numOfAssignee: 1
       
       # Handle PRs - use one action that can handle both assignments and reviews
-      - if: github.event_name == 'pull_request'
+      - if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
         uses: kentaro-m/auto-assign-action@v1.2.5
         with:
           configuration-path: .github/auto-assign-config.yml
