@@ -3,6 +3,8 @@
 #include <set>
 #include <algorithm>
 #include <functional>
+#include <array>
+#include <ranges>
 
 // From Alexander Stepanov's lectures on Efficient Programming With Components
 // https://www.youtube.com/watch?v=aIHAEYyoTUc&list=PLHxtyCq_WDLXryyw91lahwdtpZsmo4BGD&index=1
@@ -24,9 +26,8 @@ int findUnique_TwoPtr(int arr[], int size)
 {
     std::sort(arr, arr + size);
     int count{ 0 };
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < size; ++i)
         if (i == 0 || arr[i] != arr[i - 1]) ++count;
-    }
     return count;
 }
 
