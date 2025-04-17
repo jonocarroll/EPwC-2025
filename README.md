@@ -4,6 +4,7 @@ This is the material (code and presentation slide decks) that correspond to the 
 
 * **Playlist:** [Efficient Programming with Components](https://www.youtube.com/playlist?list=PLHxtyCq_WDLXryyw91lahwdtpZsmo4BGD)
 * **Content:** [Code and Papers GitHub Repo](https://github.com/rjernst/stepanov-components-course/tree/master)
+* **Course Notes:** https://www.jmeiners.com/efficient-programming-with-components
 
 #### Other Links
 
