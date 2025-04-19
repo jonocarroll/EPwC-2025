@@ -1,0 +1,5 @@
+MinMax ⇐ (⌊/)«,»(⌈/)
+
+⍝ Tests
+MinMax ⍳5     ⍝ 0 4
+MinMax 4 3 10 ⍝ 3 10
