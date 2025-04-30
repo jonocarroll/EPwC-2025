@@ -6,67 +6,71 @@ interface
 
 
 implementation
-uses Spring, Spring.Collections, System.SysUtils;
+uses
+  System.SysUtils, Spring, Spring.Collections, U_Gen_Data;
 
 const
-  N = 20000;
+  N    = 20000;
   crlf = #13#10;
-var
-  data : TArray<integer>;
 
-  procedure generate_data;
+
+  function uniq_spring_set : string;
   begin
-     setlength(data, 20000);
-     for var i:= 0 to high(data) do data[i] := random(N);
-     writeln;
+  var s := TCollections.CreateSet(data);
+      exit('Spring Set : ' + s.Count.ToString + crlf);
   end;
 
 
-  function spring_set : string;
-  var s : ISet<integer>;
+  function uniq_spring_list : string;
   begin
-     s := TCollections.CreateSet<integer>(data);
-     exit('Spring Set : ' + s.Count.ToString + crlf);
+  var l := TCollections.CreateList(data);
+      exit('Spring List : ' + l.Distinct.Count.ToString + crlf);
   end;
 
 
-  function spring_list : string;
-  var l : IList<integer>;
+  function uniq_spring_sortedlist : string;
   begin
-     l := TCollections.CreateList<integer>(data);
-     exit('Spring List : ' + l.Distinct.Count.ToString + crlf);
+  var l := TCollections.CreateSortedList(data);
+      exit('Spring SortedList : ' + l.Distinct.Count.ToString + crlf);
   end;
 
 
-  function spring_sortedlist : string;
-  var l : IList<integer>;
+  function uniq_spring_enum : string;
   begin
-     l := TCollections.CreateSortedList<integer>(data);
-     exit('Spring SortedList : ' + l.Distinct.Count.ToString + crlf);
+      exit('Spring Enumerable : ' + TEnumerable.From(data)
+                                               .Distinct
+                                               .Count
+                                               .ToString  + crlf);
   end;
 
 
-  function array_int : string;
+  function uniq_array_int : string;
   begin
-     var lst := -1;
-     var cnt :=  0;
-     TArray.Sort<integer>(data);
-     for var i in data do
-         if i<>lst then
-            begin inc(cnt); lst := i; end;
-     exit('Array : ' + cnt.ToString + crlf);
+  var last:= -1;
+  var cnt :=  0;
+      TArray.Sort<integer>(data);
+      for var i in data do
+          if i<>last then begin
+                            inc(cnt); last := i;
+                          end;
+      exit('TArray : ' + cnt.ToString + crlf);
   end;
 
 
 
   procedure unique_count_main;
   begin
-     generate_data;
+     generate_uniq_data(N);
 
-     writeln(spring_set);
-     writeln(spring_list);
-     writeln(spring_sortedlist);
-     writeln(array_int);
+     writeln(uniq_spring_set);
+     writeln(uniq_spring_list);
+     writeln(uniq_spring_sortedlist);
+     writeln(uniq_spring_enum);
+     writeln(uniq_array_int);
   end;
 
 end.
+
+
+
+

@@ -6,74 +6,72 @@ interface
 
 
 implementation
-uses Spring, Spring.Collections, System.SysUtils, System.Generics.Collections;
+uses
+  System.SysUtils, Spring, Spring.Collections, U_Gen_Data;
 
 const
-  N = 20000;
+  N1   = 10000;
+  N2   = 20000;
   crlf = #13#10;
-
-type
-  TElems = TPair<integer,integer>;
-
-var
-  data : TArray< TElems >;
-
-
-// Compiler was giving me grief over the Record Helper class  😭
-
-//  TPairHelper = record helper for TElems
-//     class function minmax(a,b:TElems) : TElems;
-//  end;
-//
-//  class function TPairHelper.minmax(a,b:TElems) : TElems;
-//  begin
-//     result := a;
-//     if b.Key   <  a.Key   then result.Key   := b.Key;
-//     if b.Value >= a.Value then result.Value := b.Value;
-//  end;
+  zero : TPairs = (Key:N2; Value:0);
+  zarr : TArray<integer> = [N2,0];
 
 
 
-procedure generate_data;
-  var x,y:integer;
+function minmax(a,b:TPairs) : TPairs;                     overload;
   begin
-     setlength(data, 10000);
-     for var i:= 0 to high(data) do begin
-         x := random(N);
-         y := random(N);
-         data[i] := TElems.Create(x,y);
-     end;
-     writeln;
+      result := a;
+      if b.Value < b.Key   then b:= TPairs.Create(b.Value,b.Key);
+      if b.Key   < a.Key   then result.Key   := b.Key;
+      if b.Value > a.Value then result.Value := b.Value;
+  end;
+
+function minmax(a,b:TArray<integer>) : TArray<Integer>;   overload;     // actually Tuple of size 2 😥
+begin
+      result := a;
+      if b[1] < b[0] then b:= [ b[1],b[0] ];
+      if b[0] < a[0] then result[0] := b[0];
+      if b[1] > a[1] then result[1] := b[1];
+end;
+
+
+
+function minmax_element_pairs : string;
+  begin
+  var z := zero;
+      for var e in data_arr do z:= minmax(z,e);
+      exit('Array MinMax : Min ' + z.Key.ToString + ' Max ' + z.Value.ToString + crlf);
   end;
 
 
-function minmax(a,b:TElems) : TElems;
-begin
-     result := a;
-     if b.Key   <  a.Key   then result.Key   := b.Key;
-     if b.Value >= a.Value then result.Value := b.Value;
-end;
-
-
-
-function minmax_element : string;
-var z:TElems;
-begin
-  z := data[0];
-  for var e in data do
-      z:= minmax(z,e); //TElems.minmax(z,e);
-
-  exit('MinMax by helper : Min ' + z.Key.ToString + ' Max ' + z.Value.ToString + crlf);
-end;
-
-
-
-
-  procedure minmax_main;
+function minmax_element_IList : string;
   begin
-     generate_data;
+      exit('List MinMax  : Min ' + data_lst.Min.ToString + ' Max ' + data_lst.Max.ToString + crlf);
+  end;
 
-     writeln( minmax_element );
+
+function minmax_element_chunk : string;
+  var z :TArray<integer>;
+  begin
+      z := zarr;
+      for var ch in TEnumerable.Chunk<integer>(data_lst,2) do z:= minmax(z,ch);
+      exit('Chunk MinMax : Min ' + z[0].ToString + ' Max ' + z[1].ToString + crlf);
+  end;
+
+
+
+procedure minmax_main;
+  begin
+      generate_pair_data(N1,N2);
+      generate_series_data(N2);
+
+      writeln( minmax_element_pairs );
+      writeln( minmax_element_IList);
+      writeln( minmax_element_chunk );
   end;
 
 end.
+
+
+
+
