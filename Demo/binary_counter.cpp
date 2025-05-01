@@ -21,9 +21,22 @@ public:
   // add
   void add(T x) {
 
+    std::cout << "----" << std::endl;
+    std::cout << "x: " << *x << std::endl;
+    for (const auto &elem : counter) {
+      std::cout << *elem << " ";
+    }
+    std::cout << std::endl;
+
     x = add_to_counter(counter.begin(), counter.end(), op, zero, x);
     if (x != zero)
       counter.push_back(x);
+
+    std::cout << "becomes  " << std::endl;
+      for (const auto &elem : counter) {
+      std::cout << *elem << " ";
+    }
+    std::cout << std::endl;
   }
 
   // reduce
@@ -91,8 +104,9 @@ template <typename I, typename Compare>
 // and Compare is a StrictWeakOrdering on ValueType(I)
 I min_element_binary(I first, I last, Compare cmp) {
   binary_counter<I, min_op<Compare>> min_counter(min_op<Compare>(cmp), last);
-  while (first != last)
+  while (first != last) {
     min_counter.add(first++);
+  }
   return min_counter.reduce();
 }
 
@@ -101,8 +115,8 @@ int main() {
   // plugin whatever numbers you want to test with
   auto data = std::vector<int>{9,   13,  7,  124, 32, 17, 8, 32,
                                237, 417, 41, 42,  13, 14, 15};
-  int *end = data + sizeof(data) / sizeof(int);
-  int *min = min_element_binary(data, end, std::less<int>());
+  auto end = data.end();
+  auto min = min_element_binary( data.begin(), data.end(), std::less<int>() );
   if (min == end) {
     std::cout << "No elements" << std::endl;
   } else {
