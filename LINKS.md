@@ -14,3 +14,12 @@
 * https://learning.oreilly.com/library/view/-/9780133084993/
 * https://uiua.org/pad?src=0_16_0-dev_1__4oqC4oip4pah4oqD4oeM4qe7IDFfMl8zCg==
 * https://jcarroll.com.au/2024/10/26/polyglot-maxxie-and-minnie/
+
+# Meeting 3 (Apr 30, 2025)
+
+* https://www.jmeiners.com/efficient-programming-with-components/10_binary_counter.html#Smallest-and-second-smallest-element
+* https://www.youtube.com/watch?v=kc9HwsxE1OY
+* https://www.youtube.com/watch?v=OWfxexSE2aM
+* https://youtu.be/l2VemFmfkG4si=DpTZMArZgyU__Y8O
+* https://youtu.be/l2VemFmfkG4
+* https://www.mycompiler.io/view/DT0JYmp5Zk0
